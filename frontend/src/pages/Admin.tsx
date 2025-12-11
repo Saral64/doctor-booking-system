@@ -21,14 +21,21 @@ export default function Admin() {
   };
 
   const createSlot = async () => {
+  try {
     await axios.post(`${API}/slots`, {
       doctorId: selectedDoctor,
       startTime,
       totalSeats
     });
     alert('Slot created!');
-    window.location.reload();
-  };
+    // Refresh the list of doctors/slots without reloading the whole page
+    window.location.reload();   // remove this
+    // Add this instead (if you have a state for doctors):
+    // setDoctors([...doctors, newDoctor]);  // or fetch again
+  } catch (err) {
+    alert('Error creating slot');
+  }
+};
 
   return (
     <div className="max-w-4xl mx-auto p-6">
