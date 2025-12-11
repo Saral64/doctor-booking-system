@@ -15,10 +15,17 @@ export default function Admin() {
   }, []);
 
   const createDoctor = async () => {
-    const res = await axios.post(`${API}/doctors`, { name: doctorName });
-    setDoctors([...doctors, res.data]);
+  try {
+    await axios.post(`${API}/doctors`, { name: doctorName });
+    alert('Doctor created successfully!');
     setDoctorName('');
-  };
+    // Optional: refresh the list automatically
+    const res = await axios.get(`${API}/doctors`);
+    setDoctors(res.data);
+  } catch (err) {
+    alert('Error creating doctor');
+  }
+};
 
   const createSlot = async () => {
   try {
@@ -27,11 +34,12 @@ export default function Admin() {
       startTime,
       totalSeats
     });
-    alert('Slot created!');
-    // Refresh the list of doctors/slots without reloading the whole page
-    window.location.reload();   // remove this
-    // Add this instead (if you have a state for doctors):
-    // setDoctors([...doctors, newDoctor]);  // or fetch again
+    alert('Slot created successfully!');
+    setStartTime('');
+    setTotalSeats(1);
+    // Optional: refresh the list
+    const res = await axios.get(`${API}/doctors`);
+    setDoctors(res.data);
   } catch (err) {
     alert('Error creating slot');
   }
