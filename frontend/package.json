@@ -12,7 +12,7 @@
     "axios": "^1.13.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.10.1"
+    "react-router-dom": "^7.10.1",
     "vite": "^5.4.0"
   },
   "devDependencies": {
